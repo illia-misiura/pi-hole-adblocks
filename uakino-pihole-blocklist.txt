@@ -1,0 +1,54 @@
+# Pi-hole Blocklist — extracted from uakino.best
+# Source: uakino.best page HTML analysis
+# Generated: 2026-05-07
+#
+# ============================================================
+# TIER 1 — AD NETWORKS & MALICIOUS SCRIPTS (block these first)
+# ============================================================
+
+# franecki.net — Primary ad network
+# Injects VAST video overlay ads ("overroll"), loads obfuscated JS,
+# does canvas/WebGL browser fingerprinting.
+# Has a fallback typo-domain: franeski.net
+franecki.net
+franeski.net
+
+# cdn77.srv224.com — Ad delivery CDN
+# Serves a single obfuscated JS file (ee314b03.js) used for ad loading.
+# The hash-named file and srv224 pattern are typical of ad networks.
+cdn77.srv224.com
+srv224.com
+
+# ============================================================
+# TIER 2 — TRACKING & FINGERPRINTING
+# ============================================================
+
+# getter.cfd — Browser fingerprinting endpoint
+# JS fetches this URL to collect: canvas fingerprint, WebGL renderer,
+# sessionStorage availability, screen dimensions. Used for ad targeting.
+getter.cfd
+
+# getter.fun — Fingerprinting fallback
+# Same role as getter.cfd, used as alternate endpoint.
+getter.fun
+
+# ============================================================
+# TIER 3 — ANALYTICS (block if you want more privacy)
+# ============================================================
+
+# Google Tag Manager — used to load analytics and marketing scripts
+www.googletagmanager.com
+googletagmanager.com
+
+# Cloudflare Web Analytics — site traffic analytics
+static.cloudflareinsights.com
+
+# ============================================================
+# TIER 4 — EXTERNAL PLAYER CDN (optional, will break video)
+# ============================================================
+
+# ashdi.vip — Video player/CDN preconnected on page load.
+# Blocking this will likely break the embedded video player.
+# Only block if you don't need to watch content on this site.
+# ashdi.vip
+

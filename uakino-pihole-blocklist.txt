@@ -52,3 +52,27 @@ static.cloudflareinsights.com
 # Only block if you don't need to watch content on this site.
 # ashdi.vip
 
+
+# ============================================================
+# SOURCE: uaserials.com — added 2026-05-07
+# ============================================================
+
+# TIER 1 — AD NETWORKS & MALICIOUS SCRIPTS
+
+# cdn.servetraff.com — Ad delivery CDN
+# Loads obfuscated hash-named JS (44fdb324.js) — identical pattern to
+# cdn77.srv224.com above. Different network, same tactic.
+cdn.servetraff.com
+servetraff.com
+
+# TIER 2 — CLOAKED SEO SPAM LINKS
+# These two domains appear as invisible links on the page:
+# style="font-size: 2px; opacity: 0; position: absolute;"
+# This is a black-hat SEO technique to pass link juice invisibly.
+# Blocking them prevents any accidental navigation or prefetch loading.
+
+# kinovezha.tv — Hidden cloaked link (invisible to user, SEO spam)
+kinovezha.tv
+
+# uabooks.net — Hidden cloaked link (same technique, sister spam network)
+uabooks.net

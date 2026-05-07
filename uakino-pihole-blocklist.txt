@@ -76,3 +76,61 @@ kinovezha.tv
 
 # uabooks.net — Hidden cloaked link (same technique, sister spam network)
 uabooks.net
+
+# ============================================================
+# SOURCE: uaserials.har + console.txt — added 2026-05-07
+# (Live network traffic analysis — actual pre-roll ad pipeline)
+# ============================================================
+
+# === THE PRE-ROLL AD PIPELINE (this is what plays before the video) ===
+#
+# Flow: tortuga.tw player -> get2.fun (resolves VAST URL) ->
+#       ad2the.net (serves VAST XML) -> nogravity4.click (streams the video)
+#       + reichelcormier.bid + kxcdn.com (impression tracking)
+
+# TIER 1 — BLOCK THESE TO KILL THE PRE-ROLL VIDEO ADS
+
+# tortuga.tw — Embedded video player host (the iframe player on the page)
+# Also runs the VAST ad logic via tor.core.js. Blocking this kills the
+# player entirely but also kills all pre-roll ads at the root.
+# calypso.tortuga.tw serves the actual content HLS stream.
+# db.tortuga.tw receives POST requests logging ad impressions (vastTry/vastHit).
+# NOTE: blocking tortuga.tw will break video playback entirely.
+# Block only the subdomains below to kill ads while keeping video:
+db.tortuga.tw
+
+# get2.fun — VAST URL resolver (double base64 obfuscated)
+# Decodes to the ad2the.net VAST XML URL. Without this the player
+# can't find the ad to play. Blocking kills pre-roll ad loading.
+# Already in list as getter.fun — this is a DIFFERENT domain.
+get2.fun
+
+# ad2the.net — VAST ad server ("Adwise" ad network)
+# Serves the VAST XML manifest that tells the player what ad video to play.
+# VAST titles confirmed from HAR: "Beton_Casino_Cinema_Sites_Preroll" (casino ad!)
+# and "stolytsya_rozvah" entertainment ads. This IS the casino ad source.
+ad2the.net
+
+# v.nogravity4.click — Ad video CDN (streams the actual MP4 pre-roll)
+# Delivers the ~5MB video files that play before content.
+# Blocking this stops the video from loading even if VAST XML gets through.
+nogravity4.click
+v.nogravity4.click
+
+# TIER 2 — AD IMPRESSION TRACKING
+
+# reichelcormier.bid — Ad impression sync / UID matching
+# Called from inside the VAST XML as a secondary impression beacon.
+# Redirects back to ad2the.net to sync viewer IDs across networks.
+reichelcormier.bid
+
+# bashirian.biz — Ad click-through landing page
+# Referenced in VAST XML ClickThrough — where you land if you click the ad.
+bashirian.biz
+
+# 3525-c73e.kxcdn.com / 3525-c73e.kx1cdn.com — Impression pixel CDNs
+# Fired as 1x1 GIF pixels to track ad view events (quartile tracking).
+# Using wildcard-style block on parent domains:
+kxcdn.com
+kx1cdn.com
+
